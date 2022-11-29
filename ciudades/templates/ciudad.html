@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-5">
+            <img src="{{ city.foto.url }}" class="img-fluid" alt="...">
+        </div>
+        <div class="col">
+            <div class="jumbotron">
+                <h1 class="display-4">Hello {{ city.nombre }}</h1>
+                <p class="lead">{{ city.pais }}</p>
+                <hr class="my-4">
+                <p>{{ city.descripcion }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+    

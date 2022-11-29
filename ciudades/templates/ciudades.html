@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    
+        {% for city in cities %}
+        {% if forloop.first %}<div class="row">{% endif %}
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{ city.foto.url }}" class="card-img-top float-start">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ city.nombre }}</h5>
+                        <p class="card-text">{{ city.descripcion|slice:"150" }}...</p>
+                        <a class="btn btn-dark" href="{% url 'ciudad' id=city.pk %}">Leer mas</a>
+                    </div>
+                </div>
+            </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
