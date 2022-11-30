@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top: 10px;">
+        <div class="col-5">
+            <img src="{{ city.image.url }}" class="img-fluid" alt="...">
+        </div>
+        <div class="col">
+            <div class="jumbotron">
+                <h1 class="display-4">{{ city.name }}</h1>
+                <h4 class="lead">{{ city.country.name }} <i class="{{ city.country.flag_css }}"></i></h4>
+                <hr class="my-4">
+                <p>{{ city.description }}</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    {% for comment in city.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_date }}</div>
+            <strong>{{ comment.author }}</strong>
+            <p>{{ comment.text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No comments here yet :(</p>
+    {% endfor %}
+
+
+    <a href="{% url 'new_comment' id=city.pk %}" class="btn btn-dark">Add Comments</a>
+</div>
+{% endblock %}
+    
