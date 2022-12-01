@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django_countries.fields import CountryField
@@ -7,8 +8,9 @@ class City(models.Model):
     name = models.CharField(max_length=200)
     country = CountryField()
     description = models.TextField()
-    image = models.ImageField(upload_to='ciudades/fotos',
-                             height_field=None, width_field=None, max_length=100)
+    image = models.ImageField(upload_to='ciudades/fotos', max_length=100)
+
+    likes = models.ManyToManyField(User, blank=True, related_name="likes")
 
     created_date = models.DateTimeField(
         default=timezone.now)
@@ -21,12 +23,14 @@ class City(models.Model):
 
     def __str__(self):
         return self.name
-    
+
     class Meta:
         verbose_name_plural = 'Cities'
 
+
 class Comment(models.Model):
-    city = models.ForeignKey('ciudades.City', on_delete=models.CASCADE, related_name='comments')
+    city = models.ForeignKey(
+        'ciudades.City', on_delete=models.CASCADE, related_name='comments')
     author = models.CharField(max_length=200)
     text = models.TextField()
     created_date = models.DateTimeField(default=timezone.now)

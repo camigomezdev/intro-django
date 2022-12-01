@@ -4,14 +4,23 @@
 <div class="container">
     <div class="row" style="margin-top: 10px;">
         <div class="col-5">
-            <img src="{{ city.image.url }}" class="img-fluid" alt="...">
+            <img src="{{ city.image.url }}" class="img-fluid">
         </div>
         <div class="col">
             <div class="jumbotron">
                 <h1 class="display-4">{{ city.name }}</h1>
                 <h4 class="lead">{{ city.country.name }} <i class="{{ city.country.flag_css }}"></i></h4>
+                <i class="fa-regular fa-thumbs-up"></i> {{ city.likes.count }}
                 <hr class="my-4">
                 <p>{{ city.description }}</p>
+                <form method="POST" action="{% url 'add_like' id=city.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value={{ request.path }}>
+                    <button
+                        type="summit"
+                        class="btn btn-primary"><i class="fa-regular fa-thumbs-up"></i> Like
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -27,8 +36,21 @@
         <p>No comments here yet :(</p>
     {% endfor %}
 
-
-    <a href="{% url 'new_comment' id=city.pk %}" class="btn btn-dark">Add Comments</a>
+    <div class="container">
+        <h2>Leave your comments</h2>
+        <form action="{% url 'new_comment' id=city.pk %}" method="POST" class="post-form">{% csrf_token %}
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="formName">Author</label>
+                {{ form.author }}
+            </div>
+            <div class="form-group">
+                <label for="formComment">Comment</label>
+                {{ form.text }}
+            </div>
+            <button type="submit" class="save btn btn-dark">Save</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
     
