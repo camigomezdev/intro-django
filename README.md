@@ -6,10 +6,10 @@
 python -m venv venv
 
 # Activación en Unix
-source env/bin/activate
+source venv/bin/activate
 
 # Activación en Windows
-env\Scripts\activate
+venv\Scripts\activate
 
 pip install -r requirements.txt
 
