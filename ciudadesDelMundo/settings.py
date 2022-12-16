@@ -53,7 +53,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'cityDelMundo.urls'
+ROOT_URLCONF = 'ciudadesDelMundo.urls'
 
 TEMPLATES = [
     {
